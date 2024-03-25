@@ -5,19 +5,21 @@
  */
 
 import { Button } from "@mui/material";
-import { color } from "../../data/constants";
+import { useTheme } from "@mui/material/styles";
 
-export const NavButtonLinks = ({ children }) => {
+export const NavButtonLinks = ({ children, color, fontWeight }) => {
+  const theme = useTheme();
+
   return (
     // Nav button links
     <Button
       disableRipple
-      size="large"
       sx={{
-        color: color.black,
+        color: { color },
+        fontWeight: { fontWeight },
         "&:hover": {
-          fontWeight: "bold",
-          color: color.black,
+          textDecoration: "underline",
+          textUnderlineOffset: "10px",
           bgcolor: "inherit",
         },
       }}

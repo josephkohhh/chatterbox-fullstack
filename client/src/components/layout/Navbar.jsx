@@ -18,7 +18,7 @@ export const Navbar = () => {
         elevation={0}
         position="static"
         sx={{
-          bgcolor: color.yellow,
+          bgcolor: "inherit",
           height: "100px",
         }}
       >
@@ -30,7 +30,7 @@ export const Navbar = () => {
             justifyContent="space-between"
             alignItems="center"
             spacing={3}
-            paddingX={5}
+            paddingX={{ xs: 2, sm: 5 }}
             marginTop="30px"
           >
             {/* Brand logo */}
@@ -46,7 +46,13 @@ export const Navbar = () => {
               display={{ xs: "none", sm: "flex" }}
             >
               {navLinks.map((link, index) => (
-                <NavButtonLinks key={index}>{link.label}</NavButtonLinks>
+                <NavButtonLinks
+                  color={color.black}
+                  fontWeight={"bold"}
+                  key={index}
+                >
+                  {link.label}
+                </NavButtonLinks>
               ))}
             </Stack>
 

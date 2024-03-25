@@ -34,7 +34,7 @@ export const MobileMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleCloseMenu}
       >
-        <MenuItem>Login</MenuItem>
+        <MenuItem disabled>Login</MenuItem>
         <MenuItem>Code</MenuItem>
         <MenuItem>Home</MenuItem>
         <MenuItem>About</MenuItem>

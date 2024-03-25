@@ -8,12 +8,23 @@ import "./App.css";
 import fontTheme from "./theme/fontTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { Home } from "./pages/Home";
+import { Chat } from "./pages/Chat";
+import { Loading } from "./components/ui/Loading";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <>
       <ThemeProvider theme={fontTheme}>
-        <Home />
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/chat" element={<Chat />} />
+          </Routes>
+        </Router>
+
+        {/* <Chat /> */}
       </ThemeProvider>
     </>
   );

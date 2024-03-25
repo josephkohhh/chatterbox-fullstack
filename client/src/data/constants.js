@@ -12,6 +12,8 @@ export const color = {
   lightblack: "#353535",
   lightGrey: "#DDDDDD",
   yellow: "#F7CF47",
+  lightyellow: "#FFF9BF",
+  green: "#04A96D",
 };
 export const navLinks = [
   { label: "Code", path: "/Code" },

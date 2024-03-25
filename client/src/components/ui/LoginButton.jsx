@@ -13,6 +13,7 @@ export const LoginButton = ({ onClick }) => {
     <Button
       disableRipple
       disableElevation
+      disabled
       variant="contained"
       size="large"
       sx={{
