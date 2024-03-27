@@ -24,10 +24,9 @@ const wsServer = new SocketIOServer(httpServer, {
 
 const waitingUsers = new Set(); // Set of user socket objects waiting for a match
 
-// Handle socketIOServer
+// Connection listener
 wsServer.on("connection", (socket) => {
   const userId = socket.id; // Assigns a unique ID to each connection
-
   // If there are waiting users, pair them up
   if (waitingUsers.size > 0) {
     const partnerSocket = [...waitingUsers][0]; // Pair up user & partner
@@ -36,6 +35,7 @@ wsServer.on("connection", (socket) => {
     const roomId = createChatRoom(userId, partnerSocket.id); // Create room
 
     socket.emit("chat-room", { type: "chat-room", roomId });
+
     wsServer
       .to(partnerSocket.id)
       .emit("chat-room", { type: "chat-room", roomId });
@@ -45,10 +45,12 @@ wsServer.on("connection", (socket) => {
     waitingUsers.add(socket);
   }
 
-  socket.on("message", (message) => {
-    // Handle messages if needed
+  // Message listener
+  socket.on("send_message", (data) => {
+    socket.to(data.roomId).emit("receive_message", data);
   });
 
+  // Disconnect listener
   socket.on("disconnect", () => {
     // Remove user from waiting queue if they were waiting
     if (waitingUsers.has(socket)) {

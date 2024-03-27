@@ -9,22 +9,24 @@ import fontTheme from "./theme/fontTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { Home } from "./pages/Home";
 import { Chat } from "./pages/Chat";
-import { Loading } from "./components/ui/Loading";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
 function App() {
+  const [socket, setSocket] = useState(null);
+
   return (
     <>
       <ThemeProvider theme={fontTheme}>
         <Router>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/chat" element={<Chat />} />
+            <Route
+              path="/"
+              element={<Home socket={socket} setSocket={setSocket} />}
+            />
+            <Route path="/chat/:roomId" element={<Chat socket={socket} />} />
           </Routes>
         </Router>
-
-        {/* <Chat /> */}
       </ThemeProvider>
     </>
   );

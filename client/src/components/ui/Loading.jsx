@@ -14,7 +14,7 @@ export const Loading = () => {
     objectFit: "cover",
   };
   return (
-    <Box height="100vh" bgcolor={color.yellow}>
+    <Box bgcolor={color.yellow}>
       <Box
         sx={{
           width: { xs: "80%", lg: "80%" },

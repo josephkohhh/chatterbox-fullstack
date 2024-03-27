@@ -8,23 +8,36 @@ import { Stack, Typography } from "@mui/material";
 import { ChatButton } from "../ui/ChatButton";
 import QuestionAnswerRoundedIcon from "@mui/icons-material/QuestionAnswerRounded";
 import { color } from "../../data/constants";
-import WebSocket from "socket.io-client";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
+import { useEffect } from "react";
 
-export const HomeContent = ({ setLoading }) => {
+export const HomeContent = ({ setLoading, socket, setSocket }) => {
   const navigate = useNavigate(); // Create instance of useNavigate
 
   // Function to handle chat now button
   const handleChatNow = () => {
-    setLoading(true);
-    const socket = new WebSocket("http://localhost:3000"); // connect to socket IO server
+    // setLoading(true);
 
-    // Connected to chat room
-    socket.on("chat-room", () => {
-      setLoading(false);
-      navigate("/chat");
-    });
+    const newSocket = io("http://localhost:3000");
+    setSocket(newSocket);
   };
+
+  // useEffect to listen to socket
+  useEffect(() => {
+    if (socket) {
+      // Chat-room listener
+      socket.on("chat-room", (data) => {
+        setLoading(false);
+        navigate(`/chat/${data.roomId}`);
+      });
+
+      // Clean up listener on socket change or unmount
+      return () => {
+        socket.off("chat-room");
+      };
+    }
+  }, [socket]);
 
   return (
     // Home content container
