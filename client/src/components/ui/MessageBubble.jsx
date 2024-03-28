@@ -12,7 +12,7 @@ export const MessageBubble = ({ isCurrentUser, children }) => {
     padding: "10px",
     maxWidth: "70%",
     margin: "10px 10px",
-    backgroundColor: isCurrentUser ? color.yellow : color.lightyellow,
+    backgroundColor: isCurrentUser ? color.yellow : color.white,
     alignSelf: isCurrentUser ? "flex-end" : "flex-start",
   };
   return (

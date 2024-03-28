@@ -8,7 +8,7 @@ import "./App.css";
 import fontTheme from "./theme/fontTheme";
 import { ThemeProvider } from "@mui/material/styles";
 import { Home } from "./pages/Home";
-import { Chat } from "./pages/Chat";
+import { Chatroom } from "./pages/Chatroom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 
@@ -24,7 +24,10 @@ function App() {
               path="/"
               element={<Home socket={socket} setSocket={setSocket} />}
             />
-            <Route path="/chat/:roomId" element={<Chat socket={socket} />} />
+            <Route
+              path="/chatroom/:roomId"
+              element={<Chatroom socket={socket} />}
+            />
           </Routes>
         </Router>
       </ThemeProvider>

@@ -27,18 +27,21 @@ const waitingUsers = new Set(); // Set of user socket objects waiting for a matc
 // Connection listener
 wsServer.on("connection", (socket) => {
   const userId = socket.id; // Assigns a unique ID to each connection
+
   // If there are waiting users, pair them up
   if (waitingUsers.size > 0) {
-    const partnerSocket = [...waitingUsers][0]; // Pair up user & partner
+    const partnerSocket = [...waitingUsers][0]; // Get the first awaiting partner
     waitingUsers.delete(partnerSocket);
 
     const roomId = createChatRoom(userId, partnerSocket.id); // Create room
 
-    socket.emit("chat-room", { type: "chat-room", roomId });
+    // Join the sockets to created chat room
+    socket.join(roomId);
+    partnerSocket.join(roomId);
 
-    wsServer
-      .to(partnerSocket.id)
-      .emit("chat-room", { type: "chat-room", roomId });
+    // Emit chat-room event to both users
+    socket.emit("chat-room", { type: "chat-room", roomId });
+    partnerSocket.emit("chat-room", { type: "chat-room", roomId });
   }
   // Otherwise, add the user to the waiting queue
   else {
@@ -47,6 +50,7 @@ wsServer.on("connection", (socket) => {
 
   // Message listener
   socket.on("send_message", (data) => {
+    console.log(data.message);
     socket.to(data.roomId).emit("receive_message", data);
   });
 

@@ -24,7 +24,7 @@ export const Home = ({ socket, setSocket }) => {
     setLoading(true);
 
     // Connect to webSocket server
-    const newSocket = io("http://localhost:3000");
+    const newSocket = io("ws://localhost:3000");
     setSocket(newSocket);
   };
 
@@ -34,7 +34,7 @@ export const Home = ({ socket, setSocket }) => {
       // Chat-room listener
       socket.on("chat-room", (data) => {
         setLoading(false);
-        navigate(`/chat/${data.roomId}`);
+        navigate(`/chatroom/${data.roomId}`);
       });
 
       // Clean up listener on socket change or unmount
